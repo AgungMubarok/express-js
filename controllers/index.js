@@ -63,14 +63,14 @@ module.exports = {
     register : (req, res) => {
         try {
             // kita akan cek si siswa yg daftar, namanya sudah ada apa belum
-            let registeredUser = siswa.filter(user => user.name == req.body.name)
+            let registeredUser = siswa.filter(user => user.email == req.body.email)
             // jika belum terdaftar/ method filter kita mereturn 0 / []
             if(registeredUser.length == 0) {
                 // kita buat 1 objek baru dari hasil input form
                 let newSiswa = {
                     id: siswa.length + 1,
                     name: req.body.name,
-                    age: req.body.age
+                    email: req.body.email
                 }
                 // jika form sudah diisi maka push object baru kedalam array siswa
                 siswa.push(newSiswa)
@@ -81,7 +81,7 @@ module.exports = {
                 })
             } else {
                 res.send({
-                    message: `Siswa dengan nama ${req.body.name} sudah terdaftar`,
+                    message: `Siswa dengan Email ${req.body.email} sudah terdaftar`,
                     status: 400
                 })
             }
@@ -101,11 +101,28 @@ module.exports = {
             siswa.map(data => {
                 if(data.id == req.params.id){
                     siswa[updateById].name = req.body.name;
-                    siswa[updateById].age = req.body.age;
+                    siswa[updateById].email = req.body.email;
                 }
             })
             res.send({
                 message: `Siswa dengan ID ${req.params.id} berhasil di update`,
+                status: 201
+            })
+
+        }
+        catch(error){
+            res.send({
+                message: `Internal Server Error, please try again`,
+                status: 500
+            })
+        }
+    },
+    remove : (req, res) => {
+        try {
+            let removeById = siswa.findIndex(user => user.id == req.params.id)
+            siswa.splice(removeById, 1)
+            res.send({
+                message: `Siswa dengan ID ${req.params.id} berhasil di Hapus`,
                 status: 201
             })
 

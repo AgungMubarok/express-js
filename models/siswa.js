@@ -4,17 +4,17 @@ const siswa = [
     {
       id: 1,
       name: 'Angga',
-      age: 30,  
+      email: 'angga@gmail.com',  
     },
     {
       id: 2,
       name: 'Agung',
-      age: 19,  
+      email: 'agung@gmail.com',  
     },
     {
       id: 3,
       name: 'Budhi',
-      age: 30,  
+      email: 'budhi@gmail.com',  
     },
 ]
 
